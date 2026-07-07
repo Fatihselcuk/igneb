@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelime Kontrol Noktası</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root {
+    --paper: #F3EEE3;
+    --paper-line: #DDD5C2;
+    --ink: #241F18;
+    --ink-soft: #6E6656;
+    --forest: #1F4D3A;
+    --forest-soft: #E4EBE4;
+    --red: #A02E2E;
+    --red-soft: #F5E4E1;
+    --card: #FBF8F1;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--paper-line) 28px);
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+    padding: 24px;
+  }
+
+  .ticket {
+    position: relative;
+    background: var(--card);
+    width: 100%;
+    max-width: 460px;
+    border: 1.5px solid var(--ink);
+    padding: 0;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+
+  .ticket-header {
+    padding: 22px 28px 18px;
+    border-bottom: 1.5px dashed var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .kimlik {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+
+  .kimlik strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-top: 2px;
+  }
+
+  .no {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .ticket-body {
+    padding: 26px 28px 28px;
+  }
+
+  .aciklama {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 24px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    transition: background 0.15s ease;
+  }
+
+  input[type="text"]::placeholder {
+    color: #A79E88;
+  }
+
+  input[type="text"]:focus {
+    background: #fff;
+  }
+
+  input[type="text"].invalid {
+    border-color: var(--red);
+    background: var(--red-soft);
+  }
+
+  button {
+    padding: 12px 20px;
+    border: 1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+
+  button:hover {
+    background: var(--forest);
+    border-color: var(--forest);
+  }
+
+  button:active {
+    transform: translate(1px, 1px);
+  }
+
+  .sonuc {
+    margin-top: 22px;
+    display: none;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .sonuc.show { display: flex; }
+
+  .stamp {
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    border: 3px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 0.62rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    transform: rotate(-8deg);
+    animation: stampIn 0.28s cubic-bezier(.2,1.4,.4,1);
+  }
+
+  @keyframes stampIn {
+    from { transform: rotate(-8deg) scale(1.6); opacity: 0; }
+    to { transform: rotate(-8deg) scale(1); opacity: 1; }
+  }
+
+  .stamp.onay {
+    border-color: var(--forest);
+    color: var(--forest);
+  }
+
+  .stamp.red {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .sonuc-metin {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+
+  .sonuc-metin span {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .perfor {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  .perfor.left { left: -11px; }
+  .perfor.right { right: -11px; }
+</style>
+</head>
+<body>
+
+  <div class="ticket">
+    <span class="perfor left"></span>
+    <span class="perfor right"></span>
+
+    <div class="ticket-header">
+      <div class="kimlik">
+        Denetim Formu
+        <strong>Kelime Girişi</strong>
+      </div>
+      <div class="no">
+        NO. 00042<br>
+        <span id="tarih"></span>
+      </div>
+    </div>
+
+    <div class="ticket-body">
+      <p class="aciklama">Girdiğiniz kelime denetimden geçirilir. Uygunsuz ifadeler onaylanmaz.</p>
+
+      <label for="kelimeInput">Kelime</label>
+      <div class="input-row">
+        <input type="text" id="kelimeInput" placeholder="yazınız..." autocomplete="off" spellcheck="false">
+        <button id="gonderBtn">Denetle</button>
+      </div>
+
+      <div class="sonuc" id="sonucAlani">
+        <div class="stamp" id="stampEl"></div>
+        <div class="sonuc-metin" id="sonucMetin"></div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  const kokKelimeler = [
+    "amk", "amq", "aq", "am1na", "amina", "amcik", "amcık",
+    "yarrak", "yarrağ", "yarak", "yaragi", "sik", "sikey", "siktir",
+    "sikik", "sikko", "sikis",
+    "orospu", "oruspu", "orospu cocugu", "orospu çocuğu",
+    "piç", "pic",
+    "göt", "got", "gotver", "götver",
+    "ibne", "top ayak",
+    "kaltak", "surtuk", "sürtük",
+    "yavsak", "yavşak",
+    "pust", "puşt",
+    "kahpe", "yosma",
+    "kancik", "kancık",
+    "dol", "döl",
+    "anani", "ananın", "avradini", "avradın",
+    "bok herif", "boktan",
+    "salak", "aptal herif", "gerizekali", "gerizekalı", "mal herif",
+    "seni oruspu", "hayvan herif",
+    "dallama", "dangalak", "ahmak",
+    "serefsiz", "şerefsiz", "haysiyetsiz",
+    "ipne",
+    "kevaşe", "kevase",
+    "sürtükler", "surtukler",
+    "yarragimi", "yarragını",
+    "amına", "amcığı", "amcığını",
+    "taşşak", "tasak", "taşak",
+    "döner sik", "kaşar", "kasar",
+    "meme", "sürüne", "sokayim", "sokim",
+    "gavat", "pezevenk",
+    "sikeyim seni", "amina koyim", "amina koyayim",
+    "orospu evladi", "orospu evladı",
+    "ananı sikeyim", "avradini sikeyim",
+    "yarrağını yerim", "sikko herif",
+    "manyak herif", "geri zekalı",
+    // genel argo / hakaret ifadeleri
+    "mal", "malsın", "malca", "aptal", "aptalsın", "salaksın",
+    "gerizekalı", "gerizekali", "geri zekali", "zekalı", "zekali",
+    "embesil", "ambesil", "şapşal", "sapsal", "sersem", "beyinsiz",
+    "kalın kafalı", "kalin kafali", "angut", "hödük", "hoduk",
+    "andaval", "andavallı", "avanak", "enayi", "ebleh",
+    "aptal misin", "salak misin", "beyinsiz misin", "kafasız", "kafasiz",
+    "cahil herif", "densiz", "arsız herif", "arsiz herif",
+    "yobaz herif", "aşağılık", "asagilik", "adi herif",
+    "ezik herif", "sefil herif", "işe yaramaz herif", "ise yaramaz herif",
+    "değersiz herif", "degersiz herif", "geri zekalısın", "gerizekalisin",
+    "malın teki", "aptalın teki", "salağın teki",
+    "beyinsizin teki", "ahmağın teki", "ahmaksın", "dangalaksın"
+  ];
+
+  const harfTablosu = {
+    '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't',
+    '@': 'a', '$': 's', '+': 't', '!': 'i',
+    'ç': 'c', 'ğ': 'g', 'ı': 'i', 'i̇': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u'
+  };
+
+  function normalize(metin) {
+    let t = metin.toLocaleLowerCase('tr-TR');
+    t = t.split('').map(ch => harfTablosu[ch] !== undefined ? harfTablosu[ch] : ch).join('');
+    const harfleriBirlestir = t.replace(/[^a-z0-9\s]/g, '');
+    const tekrarsiz = harfleriBirlestir.replace(/(.)\1{2,}/g, '$1$1');
+    return {
+      normal: t.trim(),
+      bosluksuz: harfleriBirlestir.replace(/\s+/g, '').trim(),
+      tekrarsiz: tekrarsiz.trim()
+    };
+  }
+
+  function kufurIceriyorMu(metin) {
+    const { normal, bosluksuz, tekrarsiz } = normalize(metin);
+    return kokKelimeler.some(kelime => {
+      const k = kelime.toLocaleLowerCase('tr-TR');
+      const kBosluksuz = k.replace(/\s+/g, '');
+      return normal.includes(k) || bosluksuz.includes(kBosluksuz) || tekrarsiz.includes(kBosluksuz);
+    });
+  }
+
+  const input = document.getElementById('kelimeInput');
+  const btn = document.getElementById('gonderBtn');
+  const sonucAlani = document.getElementById('sonucAlani');
+  const stampEl = document.getElementById('stampEl');
+  const sonucMetin = document.getElementById('sonucMetin');
+  const tarihEl = document.getElementById('tarih');
+
+  tarihEl.textContent = new Date().toLocaleDateString('tr-TR');
+
+  function sonucGoster(tip) {
+    sonucAlani.classList.remove('show');
+    void sonucAlani.offsetWidth; // reflow ile animasyonu yeniden tetikle
+    stampEl.className = 'stamp ' + (tip === 'onay' ? 'onay' : 'red');
+    stampEl.textContent = tip === 'onay' ? 'ONAYLANDI' : 'REDDEDİLDİ';
+
+    if (tip === 'onay') {
+      sonucMetin.innerHTML = "Bravo Bengi'yi mutlu ettiniz<span>Kayıt kabul edildi</span>";
+    } else {
+      sonucMetin.innerHTML = "Korkmaya başla, Bengi çok sinirlendi<span>Lütfen uygun bir kelime girin</span>";
+    }
+    sonucAlani.classList.add('show');
+  }
+
+  function gonder() {
+    const deger = input.value;
+
+    if (deger.trim() === '') {
+      input.classList.add('invalid');
+      return;
+    }
+
+    if (kufurIceriyorMu(deger)) {
+      input.classList.add('invalid');
+      input.value = '';
+      sonucGoster('red');
+      return;
+    }
+
+    input.classList.remove('invalid');
+    sonucGoster('onay');
+  }
+
+  btn.addEventListener('click', gonder);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') gonder();
+  });
+  input.addEventListener('input', () => {
+    input.classList.remove('invalid');
+  });
+</script>
+
+</body>
+</html>
