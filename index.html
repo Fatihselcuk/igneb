@@ -268,7 +268,7 @@
     "amk", "amq", "aq", "am1na", "amina", "amcik", "amcık",
     "yarrak", "yarrağ", "yarak", "yaragi", "sik", "sikey", "siktir",
     "sikik", "sikko", "sikis",
-    "orospu", "oruspu", "orospu cocugu", "orospu çocuğu",
+    "orospu", "oruspu", "orospu cocugu", "orospu çocuğu", "oç", "o.ç", "oç.",
     "piç", "pic",
     "göt", "got", "gotver", "götver",
     "ibne", "top ayak",
@@ -319,11 +319,23 @@
     'ç': 'c', 'ğ': 'g', 'ı': 'i', 'i̇': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u'
   };
 
+  function harfNormalizeEt(metin) {
+    return metin
+      .toLocaleLowerCase('tr-TR')
+      .split('')
+      .map(ch => harfTablosu[ch] !== undefined ? harfTablosu[ch] : ch)
+      .join('');
+  }
+
   function normalize(metin) {
-    let t = metin.toLocaleLowerCase('tr-TR');
-    t = t.split('').map(ch => harfTablosu[ch] !== undefined ? harfTablosu[ch] : ch).join('');
+    const t = harfNormalizeEt(metin);
+
+    // noktalama ve fazla boşlukları temizle (harfler arasına konan boşluk/nokta/tire atlatmalarını yakalamak için)
     const harfleriBirlestir = t.replace(/[^a-z0-9\s]/g, '');
+
+    // tekrar eden harfleri teke indir (siiiik -> sik gibi denemeler için)
     const tekrarsiz = harfleriBirlestir.replace(/(.)\1{2,}/g, '$1$1');
+
     return {
       normal: t.trim(),
       bosluksuz: harfleriBirlestir.replace(/\s+/g, '').trim(),
@@ -334,8 +346,10 @@
   function kufurIceriyorMu(metin) {
     const { normal, bosluksuz, tekrarsiz } = normalize(metin);
     return kokKelimeler.some(kelime => {
-      const k = kelime.toLocaleLowerCase('tr-TR');
-      const kBosluksuz = k.replace(/\s+/g, '');
+      // anahtar kelimeyi de GİRDİYLE AYNI şekilde normalize et (ç/ğ/ı/ö/ş/ü ve leet
+      // dönüşümleri anahtar kelime tarafında da uygulanmazsa eşleşme kaçırılır)
+      const k = harfNormalizeEt(kelime);
+      const kBosluksuz = k.replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '');
       return normal.includes(k) || bosluksuz.includes(kBosluksuz) || tekrarsiz.includes(kBosluksuz);
     });
   }
