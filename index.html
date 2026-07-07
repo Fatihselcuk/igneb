@@ -214,6 +214,46 @@
     margin-top: 4px;
   }
 
+  .panter-alani {
+    display: none;
+    justify-content: center;
+    margin-top: 18px;
+  }
+
+  .panter-alani.show {
+    display: flex;
+  }
+
+  .panter-svg {
+    width: 110px;
+    height: 110px;
+    animation: panterGiris 0.4s cubic-bezier(.25,1.6,.4,1), panterTitre 0.45s ease-in-out 0.4s 2;
+  }
+
+  @keyframes panterGiris {
+    0% { transform: scale(0.3) rotate(-6deg); opacity: 0; }
+    60% { transform: scale(1.12) rotate(2deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  @keyframes panterTitre {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    20% { transform: translateX(-3px) rotate(-2deg); }
+    40% { transform: translateX(3px) rotate(2deg); }
+    60% { transform: translateX(-2px) rotate(-1deg); }
+    80% { transform: translateX(2px) rotate(1deg); }
+  }
+
+  .panter-goz {
+    animation: gozKisma 1.1s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes gozKisma {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.35); }
+  }
+
   .perfor {
     position: absolute;
     top: 50%;
@@ -259,6 +299,46 @@
         <div class="stamp" id="stampEl"></div>
         <div class="sonuc-metin" id="sonucMetin"></div>
       </div>
+
+      <div class="panter-alani" id="panterAlani">
+        <svg class="panter-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- kulaklar -->
+          <path d="M55 60 L35 15 L80 45 Z" fill="#1C1A18"/>
+          <path d="M145 60 L165 15 L120 45 Z" fill="#1C1A18"/>
+          <!-- kafa -->
+          <ellipse cx="100" cy="105" rx="70" ry="60" fill="#232019"/>
+          <!-- çene/burun bölgesi (açık, hafif kontrast) -->
+          <ellipse cx="100" cy="130" rx="42" ry="30" fill="#2E2A22"/>
+          <!-- kaşlar (öfkeli, çatık) -->
+          <path d="M50 85 Q68 70 88 82" stroke="#0F0D0B" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <path d="M150 85 Q132 70 112 82" stroke="#0F0D0B" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <!-- gözler -->
+          <g class="panter-goz">
+            <ellipse cx="70" cy="98" rx="12" ry="9" fill="#E8B923"/>
+            <circle cx="70" cy="98" r="3.4" fill="#0F0D0B"/>
+          </g>
+          <g class="panter-goz">
+            <ellipse cx="130" cy="98" rx="12" ry="9" fill="#E8B923"/>
+            <circle cx="130" cy="98" r="3.4" fill="#0F0D0B"/>
+          </g>
+          <!-- burun -->
+          <path d="M92 118 L108 118 L100 128 Z" fill="#0F0D0B"/>
+          <!-- ağız/hırlama çizgisi -->
+          <path d="M100 128 Q100 136 100 140" stroke="#0F0D0B" stroke-width="3" fill="none"/>
+          <path d="M100 140 Q78 150 62 138" stroke="#0F0D0B" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M100 140 Q122 150 138 138" stroke="#0F0D0B" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- dişler -->
+          <path d="M75 141 L70 155 L80 144 Z" fill="#F3EEE3"/>
+          <path d="M125 141 L130 155 L120 144 Z" fill="#F3EEE3"/>
+          <path d="M88 146 L86 158 L94 148 Z" fill="#F3EEE3"/>
+          <path d="M112 146 L114 158 L106 148 Z" fill="#F3EEE3"/>
+          <!-- bıyıklar -->
+          <path d="M45 122 L15 116" stroke="#4A4536" stroke-width="2" stroke-linecap="round"/>
+          <path d="M45 130 L14 132" stroke="#4A4536" stroke-width="2" stroke-linecap="round"/>
+          <path d="M155 122 L185 116" stroke="#4A4536" stroke-width="2" stroke-linecap="round"/>
+          <path d="M155 130 L186 132" stroke="#4A4536" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
     </div>
 
   </div>
@@ -290,34 +370,34 @@
     "bızır", "bitch", "biting", "bok", "boka", "bokbok", "bokça", "bokhu", "bokkkumu",
     "boklar", "boktan", "boku", "bokubokuna", "bokum", "bombok", "boner", "bosalmak",
     "boşalmak", "cenabet", "cibiliyetsiz", "cibilliyetini", "cibilliyetsiz", "cikar",
-    "çük", "çüksüz", "cüksüz", "dalaksız", "dallama", "daltassak", "dalyarak", "dalyarrak", "dangalak",
-    "dassagi", "diktim", "dingil", "dingilini", "dinsiz", "dkerim", "domal", "domalan",
-    "domaldı", "domaldın", "domalık", "domalıyor", "domalmak", "domalmış", "domalsın",
-    "domalt", "domaltarak", "domaltıp", "domaltır", "domaltırım", "domaltip",
-    "domaltmak", "dölü", "dönek", "düdük", "eben", "ebeni", "ebenin", "ebeninki",
-    "ebleh", "ecdadını", "ecdadini", "embesil", "fahise", "fahişe", "feriştah", "ferre",
-    "fuck", "fucker", "fuckin", "fucking", "gavad", "gavat", "geber", "geberik",
-    "gebermek", "gebermiş", "gebertir", "gerızekalı", "gerizekalı", "gerizekali",
-    "gerzek", "giberim", "giberler", "gibis", "gibiş", "gibmek", "gibtiler", "goddamn",
-    "godoş", "godumun", "gotelek", "gotlalesi", "gotlu", "gotten", "gotundeki",
-    "gotunden", "gotune", "gotunu", "gotveren", "goyiim", "goyum", "goyuyim", "goyyim",
-    "göt", "göt deliği", "götelek", "göt herif", "götlalesi", "götlek", "götoğlanı",
-    "göt oğlanı", "götoş", "götten", "götü", "götün", "götüne", "götünekoyim",
-    "götüne koyim", "götünü", "götveren", "göt veren", "göt verir", "gtelek", "gtn",
-    "gtnde", "gtnden", "gtne", "gtten", "gtveren", "hasiktir", "hassikome", "hassiktir",
-    "has siktir", "hassittir", "haysiyetsiz", "hayvan herif", "hoşafı", "hödük", "hsktr",
-    "huur", "ıbnelık", "ibina", "ibine", "ibinenin", "ibne", "ibnedir", "ibneleri",
-    "ibnelik", "ibnelri", "ibneni", "ibnenin", "ibnerator", "ibnesi", "idiot", "idiyot",
-    "imansz", "ipne", "iserim", "işerim", "itoğlu it", "kafam girsin", "kafasız",
-    "kafasiz", "kahpe", "kahpenin", "kahpenin feryadı", "kaka", "kaltak", "kancık",
-    "kancik", "kappe", "karhane", "kaşar", "kavat", "kavatn", "kaypak", "kayyum",
-    "kerane", "kerhane", "kerhanelerde", "kevase", "kevaşe", "kevvase", "koca göt",
-    "koduğmun", "koduğmunun", "kodumun", "kodumunun", "koduumun", "koyarm", "koyayım",
-    "koyiim", "koyiiym", "koyim", "koyum", "koyyim", "krar", "kukudaym",
-    "laciye boyadım", "lavuk", "liboş", "madafaka", "mal", "malafat", "malak", "manyak",
-    "mcik", "memelerini", "mezveleli", "minaamcık", "mincikliyim", "monakkoluyum",
-    "motherfucker", "mudik", "ocuu", "ocuun", "o. çocuğu", "oğlancı", "oğlu it",
-    "orosbucocuu", "orospu", "orospucocugu", "orospu cocugu", "orospu çoc",
+    "çük", "çüksüz", "cüksüz", "dalaksız", "dallama", "daltassak", "dalyarak",
+    "dalyarrak", "dangalak", "dassagi", "diktim", "dingil", "dingilini", "dinsiz",
+    "dkerim", "domal", "domalan", "domaldı", "domaldın", "domalık", "domalıyor",
+    "domalmak", "domalmış", "domalsın", "domalt", "domaltarak", "domaltıp", "domaltır",
+    "domaltırım", "domaltip", "domaltmak", "dölü", "dönek", "düdük", "eben", "ebeni",
+    "ebenin", "ebeninki", "ebleh", "ecdadını", "ecdadini", "embesil", "fahise", "fahişe",
+    "feriştah", "ferre", "fuck", "fucker", "fuckin", "fucking", "gavad", "gavat",
+    "geber", "geberik", "gebermek", "gebermiş", "gebertir", "gerızekalı", "gerizekalı",
+    "gerizekali", "gerzek", "giberim", "giberler", "gibis", "gibiş", "gibmek",
+    "gibtiler", "goddamn", "godoş", "godumun", "gotelek", "gotlalesi", "gotlu", "gotten",
+    "gotundeki", "gotunden", "gotune", "gotunu", "gotveren", "goyiim", "goyum",
+    "goyuyim", "goyyim", "göt", "göt deliği", "götelek", "göt herif", "götlalesi",
+    "götlek", "götoğlanı", "göt oğlanı", "götoş", "götten", "götü", "götün", "götüne",
+    "götünekoyim", "götüne koyim", "götünü", "götveren", "göt veren", "göt verir",
+    "gtelek", "gtn", "gtnde", "gtnden", "gtne", "gtten", "gtveren", "hasiktir",
+    "hassikome", "hassiktir", "has siktir", "hassittir", "haysiyetsiz", "hayvan herif",
+    "hoşafı", "hödük", "hsktr", "huur", "ıbnelık", "ibina", "ibine", "ibinenin", "ibne",
+    "ibnedir", "ibneleri", "ibnelik", "ibnelri", "ibneni", "ibnenin", "ibnerator",
+    "ibnesi", "idiot", "idiyot", "imansz", "ipne", "iserim", "işerim", "itoğlu it",
+    "kafam girsin", "kafasız", "kafasiz", "kahpe", "kahpenin", "kahpenin feryadı",
+    "kaka", "kaltak", "kancık", "kancik", "kappe", "karhane", "kaşar", "kavat", "kavatn",
+    "kaypak", "kayyum", "kerane", "kerhane", "kerhanelerde", "kevase", "kevaşe",
+    "kevvase", "koca göt", "koduğmun", "koduğmunun", "kodumun", "kodumunun", "koduumun",
+    "koyarm", "koyayım", "koyiim", "koyiiym", "koyim", "koyum", "koyyim", "krar",
+    "kukudaym", "laciye boyadım", "lavuk", "liboş", "madafaka", "mal", "malafat",
+    "malak", "manyak", "mcik", "memelerini", "mezveleli", "minaamcık", "mincikliyim",
+    "monakkoluyum", "motherfucker", "mudik", "ocuu", "ocuun", "o. çocuğu", "oğlancı",
+    "oğlu it", "orosbucocuu", "orospu", "orospucocugu", "orospu cocugu", "orospu çoc",
     "orospuçocuğu", "orospu çocuğu", "orospu çocuğudur", "orospu çocukları", "orospudur",
     "orospular", "orospunun", "orospunun evladı", "orospuydu", "orospuyuz", "orostoban",
     "orostopol", "orrospu", "oruspu", "oruspuçocuğu", "oruspu çocuğu", "osbir",
@@ -374,7 +454,9 @@
     "küstahsın", "kustahsin", "namussuz", "namussuzsun", "şerefsiz herif", "ezik",
     "eziksin", "onursuz", "haysiyetsizsin", "karaktersiz", "bok gibi", "değersizsin",
     "degersizsin", "hiçsin", "iğrenç herif", "igrenc herif", "iğrençsin", "igrencsin",
-    "rezil herif", "rezilsin", "acizsin", "zavallı herif", "zavalli herif"
+    "rezil herif", "rezilsin", "acizsin", "zavallı herif", "zavalli herif", "amsalak",
+    "daşak", "daşağı", "daşşak", "daşşağı", "folloş", "kahbe", "kaltağ", "kancığ",
+    "orsp", "pzvnk", "qavat", "yalaka", "sıçar", "sıçayım", "sıçmak", "sıçsın", "sktr"
   ];
 
   const harfTablosu = {
@@ -424,11 +506,13 @@
   const stampEl = document.getElementById('stampEl');
   const sonucMetin = document.getElementById('sonucMetin');
   const tarihEl = document.getElementById('tarih');
+  const panterAlani = document.getElementById('panterAlani');
 
   tarihEl.textContent = new Date().toLocaleDateString('tr-TR');
 
   function sonucGoster(tip) {
     sonucAlani.classList.remove('show');
+    panterAlani.classList.remove('show');
     void sonucAlani.offsetWidth; // reflow ile animasyonu yeniden tetikle
     stampEl.className = 'stamp ' + (tip === 'onay' ? 'onay' : 'red');
     stampEl.textContent = tip === 'onay' ? 'ONAYLANDI' : 'REDDEDİLDİ';
@@ -436,7 +520,8 @@
     if (tip === 'onay') {
       sonucMetin.innerHTML = "Bravo Bengi'yi mutlu ettiniz<span>Kayıt kabul edildi</span>";
     } else {
-      sonucMetin.innerHTML = "Korkmaya başla. Bengi çok sinirlendi!!!<span>Lütfen uygun bir kelime girin</span>";
+      sonucMetin.innerHTML = "Korkmaya başla, Bengi çok sinirlendi<span>Lütfen uygun bir kelime girin</span>";
+      panterAlani.classList.add('show');
     }
     sonucAlani.classList.add('show');
   }
